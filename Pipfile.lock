@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b45b4c78f94e2231328b63f9042b86068e44e0ac79ca08f1c14ca10fea839045"
+            "sha256": "754bc5d462b96dd9f5712b5997e4ca2c32535b409c0fce68f818e3df8af77376"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -67,6 +67,13 @@
                 "sha256:deebdec17aa30a1c432cb3f437e81f8621e1c0542a0c0617a74f71e232e9939e"
             ],
             "version": "==2.0.3"
+        },
+        "mysqlclient": {
+            "hashes": [
+                "sha256:b95edaa41d6cc47deecabcdcbb5ab437ad9ae6d8955f5cf10d1847b37e66ef5e"
+            ],
+            "index": "pypi",
+            "version": "==1.4.2"
         },
         "pbr": {
             "hashes": [
