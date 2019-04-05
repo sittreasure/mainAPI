@@ -133,3 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+JENKINS_URL = os.environ.get('JENKINS_URL')
+JENKINS_USERNAME = os.environ.get('JENKINS_USERNAME')
+JENKINS_PASSWORD = os.environ.get('JENKINS_PASSWORD')
