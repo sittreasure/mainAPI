@@ -59,3 +59,7 @@ class JenkinsClient:
     configXml = self.createJenkinsFile()
     self.__jenkin.create_job(jobName, configXml)
     return True
+
+  def buildJob(self, jobName):
+    self.__jenkin.build_job(jobName)
+    return True
