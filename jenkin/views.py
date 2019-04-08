@@ -1,6 +1,7 @@
 from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
+import json
 
 from .jenkinsClient import JenkinsClient
 from .serializers import JenkinsResultSerializer
@@ -22,5 +23,5 @@ class JenkinsView(APIView):
     data = {
       'result': True
     }
-    result = JenkinsResultSerializer(data, many=True).data
+    result = JenkinsResultSerializer(data, many=False).data
     return Response(result)
