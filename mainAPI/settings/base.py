@@ -137,3 +137,5 @@ STATIC_URL = '/static/'
 JENKINS_URL = os.environ.get('JENKINS_URL')
 JENKINS_USERNAME = os.environ.get('JENKINS_USERNAME')
 JENKINS_PASSWORD = os.environ.get('JENKINS_PASSWORD')
+TOMCAT_CREDENTAIL = os.environ.get('TOMCAT_CREDENTAIL')
+TOMCAT_IP = os.environ.get('TOMCAT_IP')
