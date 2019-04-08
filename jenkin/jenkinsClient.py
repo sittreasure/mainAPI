@@ -1,5 +1,5 @@
 from django.conf import settings
-from jenkins import Jenkins
+from jenkins import Jenkins, JenkinsException
 
 bucket = 'mockJsp'
 folder = 'playground'
@@ -14,7 +14,7 @@ class JenkinsClient:
     password = getattr(settings, 'JENKINS_PASSWORD')
     self.__jenkin = Jenkins(url, username=username, password=password)
   
-  def __createJenkinsFile():
+  def __createJenkinsFile(self):
     tomcatCredentail = getattr(settings, 'TOMCAT_CREDENTAIL')
     tomcatIp = getattr(settings, 'TOMCAT_IP')
     xml = "<?xml version='1.1' encoding='UTF-8'?>"
@@ -32,10 +32,10 @@ class JenkinsClient:
     xml += "<concurrentBuild>false</concurrentBuild>"
     xml += "<builders>"
     xml += "<hudson.tasks.Shell>"
-    xml += "<command>mc cp --recursive miniostorage\{name}\{folder} .</command>".format(name=bucket, folder=folder)
+    xml += "<command>mc cp --recursive miniostorage/{name}/{folder} .</command>".format(name=bucket, folder=folder)
     xml += "</hudson.tasks.Shell>"
     xml += "<hudson.tasks.Shell>"
-    xml += "<command>mvn -f {folder}\pom.xml clean package</command>".format(folder=folder)
+    xml += "<command>mvn -f {folder}/pom.xml clean package</command>".format(folder=folder)
     xml += "</hudson.tasks.Shell>"
     xml += "</builders>"
     xml += "<publishers>"
@@ -56,10 +56,22 @@ class JenkinsClient:
     return xml
 
   def createJob(self, jobName):
-    configXml = self.createJenkinsFile()
-    self.__jenkin.create_job(jobName, configXml)
-    return True
+    result = None
+    configXml = self.__createJenkinsFile()
+    try:
+      self.__jenkin.create_job(jobName, configXml)
+      pass
+    except JenkinsException as err:
+      result = False
+      pass
+    return result
 
   def buildJob(self, jobName):
-    self.__jenkin.build_job(jobName)
-    return True
+    result = None
+    try:
+      self.__jenkin.build_job(jobName)
+      pass
+    except JenkinsException as err:
+      result = False
+      pass
+    return result
