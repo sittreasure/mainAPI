@@ -1,7 +1,7 @@
 from django.conf import settings
 from jenkins import Jenkins, JenkinsException
 
-bucket = 'mockJsp'
+bucket = 'mockjsp'
 folder = 'playground'
 
 class JenkinsClient:
