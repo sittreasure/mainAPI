@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e565a50c6fe1ac8f4e7af19f2960b5db868f6357b0c6171f95ea1417474987d6"
+            "sha256": "754bc5d462b96dd9f5712b5997e4ca2c32535b409c0fce68f818e3df8af77376"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -81,14 +81,6 @@
                 "sha256:8c361cc353d988e4f5b998555c88098b9d5964c2e11acf7b0d21925a66bb5824"
             ],
             "version": "==5.1.3"
-        },
-        "py-eureka-client": {
-            "hashes": [
-                "sha256:0a16f002ed2c9c08f17ff521215f449fc248e1d4ff86e903dcb71bc0eeead6d1",
-                "sha256:7900019ea8eeb306c6d7981d000ec109b358c28e21200ee729acdd9a36f4b691"
-            ],
-            "index": "pypi",
-            "version": "==0.5.5"
         },
         "python-jenkins": {
             "hashes": [
