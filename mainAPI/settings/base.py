@@ -45,6 +45,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    'jenkin',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -133,3 +134,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+JENKINS_URL = os.environ.get('JENKINS_URL')
+JENKINS_USERNAME = os.environ.get('JENKINS_USERNAME')
+JENKINS_PASSWORD = os.environ.get('JENKINS_PASSWORD')
+TOMCAT_CREDENTAIL = os.environ.get('TOMCAT_CREDENTAIL')
+TOMCAT_IP = os.environ.get('TOMCAT_IP')
