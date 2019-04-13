@@ -55,6 +55,10 @@ class JenkinsClient:
     xml += "</project>"
     return xml
 
+  def getBuildNumber(self, jobName):
+    info = self.__jenkin.get_job_info(jobName)
+    return info['lastBuild']['number']
+
   def createJob(self, jobName):
     result = None
     configXml = self.__createJenkinsFile(jobName)
