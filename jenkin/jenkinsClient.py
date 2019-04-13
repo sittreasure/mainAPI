@@ -55,7 +55,7 @@ class JenkinsClient:
     xml += "</project>"
     return xml
 
-  def getBuildNumber(self, jobName):
+  def __getBuildNumber(self, jobName):
     info = self.__jenkin.get_job_info(jobName)
     return info['lastBuild']['number']
 
@@ -79,3 +79,8 @@ class JenkinsClient:
       result = False
       pass
     return result
+
+  def getBuildInfo(self, jobName):
+    buildNumber = self.__getBuildNumber(jobName)
+    info = self.__jenkin.get_build_info(jobName, buildNumber)
+    return info
