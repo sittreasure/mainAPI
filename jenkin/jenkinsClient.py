@@ -84,3 +84,8 @@ class JenkinsClient:
     buildNumber = self.__getBuildNumber(jobName)
     info = self.__jenkin.get_build_info(jobName, buildNumber)
     return info
+
+  def getConsoleLog(self, jobName):
+    buildNumber = self.__getBuildNumber(jobName)
+    log = self.__jenkin.get_build_console_output(jobName, buildNumber)
+    return log
