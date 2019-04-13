@@ -40,3 +40,10 @@ class JenkinsBuildView(APIView):
     }
     result = JenkinsResultSerializer(data, many=False).data
     return Response(result)
+
+class JenkinsLogView(APIView):
+  __jenkinsClient = None
+  
+  def __init__(self, **kwargs):
+    super().__init__(**kwargs)
+    self.__jenkinsClient = JenkinsClient()
