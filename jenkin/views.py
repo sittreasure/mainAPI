@@ -4,7 +4,7 @@ from rest_framework.response import Response
 import json
 
 from .jenkinsClient import JenkinsClient
-from .serializers import JenkinsResultSerializer
+from .serializers import JenkinsResultSerializer, JenkinsLogSerializer
 
 class JenkinsView(APIView):
   __jenkinsClient = None
@@ -47,3 +47,12 @@ class JenkinsLogView(APIView):
   def __init__(self, **kwargs):
     super().__init__(**kwargs)
     self.__jenkinsClient = JenkinsClient()
+
+  def get(self, request):
+    jobName = request.GET.get('job_name', '')
+    log = self.__jenkinsClient.getConsoleLog(jobName)
+    data = {
+      'log': log
+    }
+    result = JenkinsLogSerializer(data, many=False).data
+    return Response(result)
