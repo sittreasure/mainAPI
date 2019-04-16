@@ -14,7 +14,7 @@ class JenkinsClient:
     password = getattr(settings, 'JENKINS_PASSWORD')
     self.__jenkin = Jenkins(url, username=username, password=password)
   
-  def __createJenkinsFile(self):
+  def __createJenkinsFile(self, jobName):
     tomcatCredentail = getattr(settings, 'TOMCAT_CREDENTAIL')
     tomcatIp = getattr(settings, 'TOMCAT_IP')
     xml = "<?xml version='1.1' encoding='UTF-8'?>"
@@ -46,7 +46,7 @@ class JenkinsClient:
     xml += "<url>http://{ip}:8080</url>".format(ip=tomcatIp)
     xml += "</hudson.plugins.deploy.tomcat.Tomcat8xAdapter>"
     xml += "</adapters>"
-    xml += "<contextPath>{name}</contextPath>".format(name=bucket)
+    xml += "<contextPath>{name}</contextPath>".format(name=jobName)
     xml += "<war>**/*.war</war>"
     xml += "<onFailure>false</onFailure>"
     xml += "</hudson.plugins.deploy.DeployPublisher>"
@@ -55,9 +55,13 @@ class JenkinsClient:
     xml += "</project>"
     return xml
 
+  def __getBuildNumber(self, jobName):
+    info = self.__jenkin.get_job_info(jobName)
+    return info['lastBuild']['number']
+
   def createJob(self, jobName):
     result = None
-    configXml = self.__createJenkinsFile()
+    configXml = self.__createJenkinsFile(jobName)
     try:
       self.__jenkin.create_job(jobName, configXml)
       pass
@@ -75,3 +79,13 @@ class JenkinsClient:
       result = False
       pass
     return result
+
+  def getBuildInfo(self, jobName):
+    buildNumber = self.__getBuildNumber(jobName)
+    info = self.__jenkin.get_build_info(jobName, buildNumber)
+    return info
+
+  def getConsoleLog(self, jobName):
+    buildNumber = self.__getBuildNumber(jobName)
+    log = self.__jenkin.get_build_console_output(jobName, buildNumber)
+    return log
