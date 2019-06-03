@@ -15,7 +15,7 @@ class JenkinsClient:
     self.__jenkin = Jenkins(url, username=username, password=password)
   
   def __createJenkinsFile(self, jobName):
-    tomcatCredentail = getattr(settings, 'TOMCAT_CREDENTAIL')
+    tomcatCredentail = getattr(settings, 'TOMCAT_CREDENTIAL')
     tomcatIp = getattr(settings, 'TOMCAT_IP')
     xml = "<?xml version='1.1' encoding='UTF-8'?>"
     xml += "<project>"
