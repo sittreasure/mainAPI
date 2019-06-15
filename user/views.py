@@ -1,7 +1,6 @@
 import json
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_jwt.utils import jwt_encode_handler
 
@@ -12,16 +11,8 @@ from .serializers import UserSerializer
 class UserViewSet(ModelViewSet):
   queryset = User.objects.all()
   serializer_class = UserSerializer
-  permission_classes = [IsAuthenticated]
 
 class FacebookAuthView(APIView):
-  permission_classes = []
-
-  def get(self, request):
-    return Response({
-      'msg': 'hello'
-    })
-
   def post(self, request):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
