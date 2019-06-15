@@ -13,6 +13,7 @@ django-cors-headers = "==2.5.2"
 mysqlclient = "==1.4.2"
 requests = "==2.21.0"
 uwsgi = "==2.0.17"
+djangorestframework-jwt = "==1.11.0"
 
 [requires]
 python_version = "3.7"
