@@ -11,5 +11,5 @@ def jwt_payload_handler(user):
     payload['orig_iat'] = timegm(
         datetime.utcnow().utctimetuple()
     )
-    
+
   return payload
