@@ -62,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'base.middlewares.VerifyJwtMiddleware',
 ]
 
 ROOT_URLCONF = 'mainAPI.urls'
@@ -147,15 +149,6 @@ JENKINS_PASSWORD = os.environ.get('JENKINS_PASSWORD')
 
 TOMCAT_CREDENTIAL = os.environ.get('TOMCAT_CREDENTIAL')
 TOMCAT_IP = os.environ.get('TOMCAT_IP')
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    ),
-}
 
 JWT_AUTH = {
     'JWT_PAYLOAD_HANDLER': 'base.jwt.jwt_payload_handler',
