@@ -154,7 +154,5 @@ JWT_AUTH = {
     'JWT_PAYLOAD_HANDLER': 'base.jwt.jwt_payload_handler',
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'JWT_SECRET_KEY': os.environ.get('JWT_SECRET_KEY'),
-    'JWT_EXPIRATION_DELTA': timedelta(minutes=60),
-    'JWT_ALLOW_REFRESH': True,
-    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
+    'JWT_EXPIRATION_DELTA': timedelta(days=7),
 }
