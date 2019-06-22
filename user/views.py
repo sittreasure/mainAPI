@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_jwt.utils import jwt_encode_handler
 
-from base.jwt import jwt_payload_handler
+from base.jwt import jwt_payload_handler, getUserId
 from .models import User
 from .serializers import UserSerializer
 
@@ -33,3 +33,10 @@ class FacebookAuthView(APIView):
     return Response({
       'accessToken': token,
     })
+
+class MeView(APIView):
+  def get(self, request):
+    userId = getUserId(request)
+    user = User.objects.get(id=userId)
+    result = UserSerializer(user, many=False).data
+    return Response(result)
