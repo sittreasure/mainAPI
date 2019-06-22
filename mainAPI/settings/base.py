@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -46,6 +47,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'jenkin',
+    'base',
+    'user',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -59,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'base.middlewares.VerifyJwtMiddleware',
 ]
 
 ROOT_URLCONF = 'mainAPI.urls'
@@ -93,6 +98,9 @@ DATABASES = {
         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
         'HOST': os.environ.get('DATABASE_HOST'),
         'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     }
 }
 
@@ -138,5 +146,13 @@ STATIC_URL = '/static/'
 JENKINS_URL = os.environ.get('JENKINS_URL')
 JENKINS_USERNAME = os.environ.get('JENKINS_USERNAME')
 JENKINS_PASSWORD = os.environ.get('JENKINS_PASSWORD')
+
 TOMCAT_CREDENTIAL = os.environ.get('TOMCAT_CREDENTIAL')
 TOMCAT_IP = os.environ.get('TOMCAT_IP')
+
+JWT_AUTH = {
+    'JWT_PAYLOAD_HANDLER': 'base.jwt.jwt_payload_handler',
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+    'JWT_SECRET_KEY': os.environ.get('JWT_SECRET_KEY'),
+    'JWT_EXPIRATION_DELTA': timedelta(days=7),
+}

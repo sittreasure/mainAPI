@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'v1/jenkins/', include('jenkin.urls')),
+    path(r'v1/user/', include('user.urls')),
 ]
