@@ -5,6 +5,7 @@ import json
 
 from .jenkinsClient import JenkinsClient
 from .serializers import JenkinsResultSerializer, JenkinsLogSerializer
+from base.jwt import getUserId
 
 class JenkinsView(APIView):
   __jenkinsClient = None
@@ -14,10 +15,13 @@ class JenkinsView(APIView):
     self.__jenkinsClient = JenkinsClient()
 
   def post(self, request):
+    userId = getUserId(request)
+    bucket = str(userId)
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     jobName = body['jobName']
-    self.__jenkinsClient.createJob(jobName)
+    folder = body['folder']
+    self.__jenkinsClient.createJob(jobName, bucket, folder)
     self.__jenkinsClient.buildJob(jobName)
     data = {
       'result': True

@@ -1,9 +1,6 @@
 from django.conf import settings
 from jenkins import Jenkins, JenkinsException
 
-bucket = 'mockjsp'
-folder = 'playground'
-
 class JenkinsClient:
   __jenkin = None
 
@@ -14,8 +11,8 @@ class JenkinsClient:
     password = getattr(settings, 'JENKINS_PASSWORD')
     self.__jenkin = Jenkins(url, username=username, password=password)
   
-  def __createJenkinsFile(self, jobName):
-    tomcatCredentail = getattr(settings, 'TOMCAT_CREDENTIAL')
+  def __createJenkinsFile(self, jobName, bucket, folder):
+    tomcatCredential = getattr(settings, 'TOMCAT_CREDENTIAL')
     tomcatIp = getattr(settings, 'TOMCAT_IP')
     xml = "<?xml version='1.1' encoding='UTF-8'?>"
     xml += "<project>"
@@ -42,7 +39,7 @@ class JenkinsClient:
     xml += "<hudson.plugins.deploy.DeployPublisher plugin='deploy@1.13'>"
     xml += "<adapters>"
     xml += "<hudson.plugins.deploy.tomcat.Tomcat8xAdapter>"
-    xml += "<credentialsId>{credential}</credentialsId>".format(credential=tomcatCredentail)
+    xml += "<credentialsId>{credential}</credentialsId>".format(credential=tomcatCredential)
     xml += "<url>http://{ip}:8080</url>".format(ip=tomcatIp)
     xml += "</hudson.plugins.deploy.tomcat.Tomcat8xAdapter>"
     xml += "</adapters>"
@@ -59,9 +56,9 @@ class JenkinsClient:
     info = self.__jenkin.get_job_info(jobName)
     return info['lastBuild']['number']
 
-  def createJob(self, jobName):
+  def createJob(self, jobName, bucket, folder):
     result = None
-    configXml = self.__createJenkinsFile(jobName)
+    configXml = self.__createJenkinsFile(jobName, bucket, folder)
     try:
       self.__jenkin.create_job(jobName, configXml)
       pass

@@ -1,4 +1,5 @@
 from rest_framework_jwt.settings import api_settings
+from rest_framework_jwt.utils import jwt_decode_handler
 from calendar import timegm
 from datetime import datetime
 
@@ -13,3 +14,10 @@ def jwt_payload_handler(user):
     )
 
   return payload
+
+def getUserId(request):
+  authorization = request.META['HTTP_AUTHORIZATION']
+  token = authorization.replace('Bearer ', '')
+  token = jwt_decode_handler(token)
+  userId = token['user_id']
+  return userId
