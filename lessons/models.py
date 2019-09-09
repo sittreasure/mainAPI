@@ -13,8 +13,9 @@ class LessonGroup(Timestamp):
 class Lesson(Timestamp):
   topic = models.CharField(max_length=100)
   description = models.TextField()
-  lessonGroup = models.ForeignKey('lessons.LessonGroup', on_delete=models.CASCADE, db_column='lesson_group_id',)
-  addedBy = models.ForeignKey('user.User', on_delete=models.CASCADE, db_column='added_by',)
+  lessonGroup = models.ForeignKey('lessons.LessonGroup', on_delete=models.CASCADE, db_column='lesson_group_id')
+  addedBy = models.ForeignKey('user.User', on_delete=models.CASCADE, db_column='added_by', null=True, blank=True)
+  priority = models.PositiveSmallIntegerField()
 
   class Meta:
     db_table = 'Lessons'
@@ -24,7 +25,7 @@ class Lesson(Timestamp):
 
 class Learning(Timestamp):
   user = models.ForeignKey('user.User', on_delete=models.CASCADE)
-  lesson = models.ForeignKey('lessons.Lesson', on_delete=models.CASCADE, null=True, blank=True)
+  lesson = models.ForeignKey('lessons.Lesson', on_delete=models.CASCADE)
 
   class Meta:
     db_table = 'Learnings'
