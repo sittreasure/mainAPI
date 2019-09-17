@@ -11,6 +11,9 @@ class LessonGroupViewSet(viewsets.ModelViewSet):
 class LessonViewSet(viewsets.ModelViewSet):
   queryset = Lesson.objects.all()
   serializer_class = LessonSerializer
+  def get_queryset(self):
+    queryset = self.queryset
+    return queryset.order_by('lessonGroup', 'priority')
 
 class LearningViewSet(viewsets.ModelViewSet):
   queryset = Learning.objects.all()
@@ -18,4 +21,4 @@ class LearningViewSet(viewsets.ModelViewSet):
   def get_queryset(self):
     queryset = self.queryset
     userId = getUserId(self.request)
-    return queryset.filter(user=userId)
+    return queryset.filter(user=userId).order_by('lesson__lessonGroup', 'lesson__priority')
