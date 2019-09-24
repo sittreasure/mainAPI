@@ -6,6 +6,7 @@ class User(Timestamp):
   name = models.CharField(max_length=30)
   surname = models.CharField(max_length=30)
   avatar = models.TextField()
+  isAdmin = models.BooleanField(db_column='is_admin', default=False)
 
   class Meta:
     db_table = 'Users'
