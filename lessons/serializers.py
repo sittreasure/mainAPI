@@ -10,7 +10,7 @@ class LessonGroupSerializer(serializers.ModelSerializer):
 class LessonSerializer(serializers.ModelSerializer):
   class Meta:
     model = Lesson
-    fields = ('id', 'topic', 'description', 'lessonGroup')
+    fields = ('id', 'topic', 'description', 'lessonGroup', 'addedBy')
 
 class LearningSerializer(serializers.ModelSerializer):
   class Meta:
