@@ -8,3 +8,10 @@ class CardStatSerializer(serializers.Serializer):
 class ChartStatSerializer(serializers.Serializer):
   count = serializers.IntegerField()
   data = serializers.DictField()
+
+class UserStatSerializer(serializers.Serializer):
+  id = serializers.IntegerField()
+  name = serializers.CharField()
+  avatar = serializers.CharField()
+  isAdmin = serializers.BooleanField()
+  lesson = serializers.IntegerField(allow_null=True)

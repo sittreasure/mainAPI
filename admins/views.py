@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from datetime import datetime, timedelta
 
-from .serialiers import CardStatSerializer, ChartStatSerializer
+from .serialiers import CardStatSerializer, ChartStatSerializer, UserStatSerializer
 from user.models import User
 from lessons.models import Learning, LessonGroup
 
@@ -48,4 +48,20 @@ class ChartStatView(APIView):
       'data': groups
     }
     result = ChartStatSerializer(data, many=False).data
+    return Response(result)
+
+class UserStatView(APIView):
+  def get(self, request):
+    users = User.objects.all().order_by('name', 'surname')
+    def formatData(user):
+      lastLearning = Learning.objects.filter(user=user.id).values('lesson__lessonGroup').last()
+      return {
+        'id': user.id,
+        'name': "{0} {1}".format(user.name, user.surname),
+        'avatar': user.avatar,
+        'isAdmin': user.isAdmin,
+        'lesson': lastLearning and lastLearning['lesson__lessonGroup'],
+      }
+    data = list(map(formatData, users))
+    result = UserStatSerializer(data, many=True).data
     return Response(result)
