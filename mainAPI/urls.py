@@ -21,4 +21,5 @@ urlpatterns = [
     path(r'v1/jenkins/', include('jenkin.urls')),
     path(r'v1/user/', include('user.urls')),
     path(r'v1/lessons/', include('lessons.urls')),
+    path(r'v1/admins/', include('admins.urls')),
 ]
