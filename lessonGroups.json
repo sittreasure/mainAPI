@@ -1,0 +1,47 @@
+[
+{
+  "model": "lessons.lessongroup",
+  "pk": 1,
+  "fields": {
+    "createdAt": "2019-09-10T00:00:00Z",
+    "updatedAt": "2019-09-10T00:00:00Z",
+    "name": "Web Architecture"
+  }
+},
+{
+  "model": "lessons.lessongroup",
+  "pk": 2,
+  "fields": {
+    "createdAt": "2019-09-10T00:00:00Z",
+    "updatedAt": "2019-09-10T00:00:00Z",
+    "name": "Java EE Architecture + MVC"
+  }
+},
+{
+  "model": "lessons.lessongroup",
+  "pk": 3,
+  "fields": {
+    "createdAt": "2019-09-10T00:00:00Z",
+    "updatedAt": "2019-09-10T00:00:00Z",
+    "name": "Controller"
+  }
+},
+{
+  "model": "lessons.lessongroup",
+  "pk": 4,
+  "fields": {
+    "createdAt": "2019-09-10T00:00:00Z",
+    "updatedAt": "2019-09-10T00:00:00Z",
+    "name": "View"
+  }
+},
+{
+  "model": "lessons.lessongroup",
+  "pk": 5,
+  "fields": {
+    "createdAt": "2019-09-10T00:00:00Z",
+    "updatedAt": "2019-09-10T00:00:00Z",
+    "name": "Model"
+  }
+}
+]
